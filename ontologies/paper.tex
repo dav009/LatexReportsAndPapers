@@ -39,6 +39,14 @@
 
 \section{Introduction}
 
+
+\begin{figure*}[]
+  \centering
+    \includegraphics[scale=0.2]{pics/problem.jpg}
+    \caption{Problem Diagram}
+   \label{fig:problem}  
+\end{figure*}
+
 This report focus on the paper \textit{Automatic Generation of Domains Models for call centers from noisy transcriptions} ~\cite{Roy:2006:AGD:1220175.1220268}.\\
 In the given paper the authors describe a method for automatically creating a taxonomy.\\
 The domain of the problem are the issues of a Callcenter. The Call center handles user problems related to different sofware and services.\\
@@ -76,6 +84,7 @@ As an initial step to start the process of creating the taxonomy a preprocessing
 In the preprocessing two major steps take place, first the Speech Data is transformed into text and second the text is transformed into feature vectors for the method incharged of building the taxonomy.
 
 
+
 \subsection{Automatic Speech Recognition}
 		
 During this step the conversations between agents and clients which have been recorded are transformed into text using Automatic Speech Recognition.\\
@@ -109,8 +118,16 @@ Secondly given the BoW(Bag of Words) approach they use in their system later, is
 
 
 \subsection{Feature Engenieering component}
-This corresponds to the second step of the preprocessing. In this step the texts are pruned and transformed into feature vectors.\\
+
+This corresponds to the second step of the preprocessing. In this step the texts are pruned and transformed into feature vectors (Figure ~\ref{fig:eng_component} ).\\
 Each document pass through the following filters:
+
+\begin{figure*}[]
+  \centering
+    \includegraphics[scale=0.2]{pics/eng_component.jpg}
+    \caption{Feature Engenieering component}
+   \label{fig:eng_component}  
+\end{figure*}
 
 \begin{itemize}
 	\item Stop Word Removal: Functional words which do not convey relevant meaning are removed (i.e: ''for",''of"..).
