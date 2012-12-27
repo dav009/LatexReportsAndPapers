@@ -40,33 +40,36 @@
 \section{Introduction}
 
 
-
-
-
---------------------------------------------------
-Automatic generation of Taxonomies
-
-Summary
-
-\section{Problem}
-In the given paper ~\cite{Roy:2006:AGD:1220175.1220268} the authors describe a method for automatically creating a taxonomy.
-The domain of the problem are the issues of a Callcenter. The Call center handles user problems related to different sofware and services.
-The proposed method use  written and speech records between the agents of the call center and the clients. 
+In the given paper ~\cite{Roy:2006:AGD:1220175.1220268} the authors describe a method for automatically creating a taxonomy.\\
+The domain of the problem are the issues of a Callcenter. The Call center handles user problems related to different sofware and services.\\
+The proposed method use  written and speech records between the agents of the call center and the clients. \\
 In the next sections  the method for transforming unstructured data into a knowledge representation proposed by the paper will be described,
 then a critical review and opinion over the method will be given. Addionally a comparison between the given paper and other papers willing to automatically construct knowledge representation is made.
-The last section covers  possible applications of automatically constructed Ontologies in hte domain of Natural Language Processing.
+The last section covers  possible applications of automatically constructed Ontologies in the domain of Natural Language Processing.
 
-
-Motivation for automatically generationg a taxonomy
+\section{Motivation}
 
 Automatically creating knowledge representation from unstructured text has been a focus of study given the amount of data available in the web.
-Projects such as 'Know it all'\footnote{\url{http://www.cs.washington.edu/research/knowitall/}} considers the problem of developing a variety of domain-independent systems that extract information from the Web in an autonomous, scalable way.Google for example has the project 'The knowledge Graph' which considers the automatically construction of an ontology by using the web knowledge. 
-
-Information extraction for example considers the task of identifying entities and relations from raw text.
+Projects such as 'Know it all'\footnote{\url{http://www.cs.washington.edu/research/knowitall/}} considers the problem of developing a variety of domain-independent systems that extract information from the Web in an autonomous, scalable way.\\ Google\footnote{\url{http://www.google.com/insidesearch/features/search/knowledge.html}} for example has the project 'The knowledge Graph' which considers the automatically construction of an ontology by using the web knowledge. \\
+\\
+Nevertheless the unstructured nature of the information has proven to be an challenge when constructing knowledge representations, natural languages arises many problems when trying to understand their semantics and to abstract concrete cases into general relations and entities.\\
+In the opinion of this reviewer Information Extraction provided a first simple task into automatically creating structures from natural language texts. The task in information extraction consist in gathering  relations among entities from raw text.\\
 In the first stages of this task only a very specific range of relations and entities are to be caught.
-For example one would like to gather all relations and entities talking about  "getting the nobel prize" or "change of chairs in a company".
-However in the recent years this trend has evolved towards "Open Information Extraction", which wants to capture as much as entities and relations as possible given raw text.
-The applications to information extraction are countless, the ouput of the task provide a resource for other more sophisticated processes, and it could be useful for example to correlate different relations or events captured from differnt sources, topic mining, opinion mining or information retrieval.
+For example one would like to gather all relations and entities talking about  "getting the nobel prize" or "change of chairs in a company".\\
+However in the recent years this trend has evolved towards "Open Information Extraction", which wants to capture as much as entities and relations as possible given raw text.\\
+The applications to information extraction are countless, the ouput of the task provide a resource for other more sophisticated processes, and it could be useful for example to topic mining, opinion mining or information retrieval or to correlate different relations or events captured from different sources.
+In the opinion of the reviewer this provides a first step into building an ontology, since it would allow initially to have a candidate pool of concepts and relations.\\
+\\
+During the last years focus has been put into strategies which allow to capture structures in raw text, for example Cortez and Oliveira ~\cite{Cortez:2011:JUS:1989323.1989380} proposed a method for extracting data from semistructured texts. In their experiments their system learns without human intervention the structures in which Cooking recipes are written and it is able to match each step and ingredients of the recipes into a structured representation.\\
+This could be a major improvement since it would allow for example to capture entities and relations from soruces of knowledge that are semi-structured like Wikipedia.\\
+\\
+Addionally I would like to mention that even though there is a focus on creating Ontologies, there is also a focus on Extending the current ones in an automatic way.\\
+Many tasks require Knowledge sources in order to achieve good performance, however this depends deeply on the coverage of the Knowledge representation. 
+Consider for example the applications using Wordnet or Framenet, they heavily rely on the coverage of those sources to disambiguate the senses of the words.
+In ~\cite{Tonelli:2013:WWM:2405838.2405917} Tonelli proposes a method for extending this Knowledge Sources by using Wikipedia in a semi-automatic way.
+Following the same trend Yamada ~\cite{yamada-EtAl:2011:IJCNLP-2011} tries to extend Wordnet in an automatic way by using Wikipedia.\\
+Following a different direction Pinkal,Regneri and Koller  in ~\cite{regneri-koller-pinkal:2010:ACL} propose the use of crowdsourcing to gather scripts of common activities (like shopping, cooking and egg) in order to model $Common\, Knowledge$ which is often overlooked by computer systems.
+
 
 
 \section{Proposed Method}
