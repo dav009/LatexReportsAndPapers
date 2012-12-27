@@ -39,12 +39,12 @@
 
 \section{Introduction}
 
-
+This report focus on the paper \textit{Automatic Generation of Domains Models for call centers from noisy transcriptions} ~\cite{Roy:2006:AGD:1220175.1220268}.\\
 In the given paper ~\cite{Roy:2006:AGD:1220175.1220268} the authors describe a method for automatically creating a taxonomy.\\
 The domain of the problem are the issues of a Callcenter. The Call center handles user problems related to different sofware and services.\\
-The proposed method use  written and speech records between the agents of the call center and the clients. \\
+The proposed method use  written and speech records between the agents of the call center and the clients to built the ontology. \\
 In the next sections  the method for transforming unstructured data into a knowledge representation proposed by the paper will be described,
-then a critical review and opinion over the method will be given. Addionally a comparison between the given paper and other papers willing to automatically construct knowledge representation is made.
+then a critical review and opinion over the method will be given. Additionally a comparison between the given paper and other papers willing to automatically construct knowledge representation is made.
 The last section covers  possible applications of automatically constructed Ontologies in the domain of Natural Language Processing.
 
 \section{Motivation}
@@ -63,7 +63,7 @@ In the opinion of the reviewer this provides a first step into building an ontol
 During the last years focus has been put into strategies which allow to capture structures in raw text, for example Cortez and Oliveira ~\cite{Cortez:2011:JUS:1989323.1989380} proposed a method for extracting data from semistructured texts. In their experiments their system learns without human intervention the structures in which Cooking recipes are written and it is able to match each step and ingredients of the recipes into a structured representation.\\
 This could be a major improvement since it would allow for example to capture entities and relations from soruces of knowledge that are semi-structured like Wikipedia.\\
 \\
-Addionally I would like to mention that even though there is a focus on creating Ontologies, there is also a focus on Extending the current ones in an automatic way.\\
+Addionally The reviewer would like to mention that even though there is a focus on creating Ontologies, there is also a focus on Extending the current ones in an automatic way.\\
 Many tasks require Knowledge sources in order to achieve good performance, however this depends deeply on the coverage of the Knowledge representation. 
 Consider for example the applications using Wordnet or Framenet, they heavily rely on the coverage of those sources to disambiguate the senses of the words.
 In ~\cite{Tonelli:2013:WWM:2405838.2405917} Tonelli proposes a method for extending this Knowledge Sources by using Wikipedia in a semi-automatic way.
@@ -71,23 +71,49 @@ Following the same trend Yamada ~\cite{yamada-EtAl:2011:IJCNLP-2011} tries to ex
 Following a different direction Pinkal,Regneri and Koller  in ~\cite{regneri-koller-pinkal:2010:ACL} propose the use of crowdsourcing to gather scripts of common activities (like shopping, cooking and egg) in order to model $Common\, Knowledge$ which is often overlooked by computer systems.
 
 
-
-\section{Proposed Method}
-
-
-In this section the proposed unsupervised method is disscused
-
-	\subsection{Preprocessing }
-		\subsubsection{Automatic Speech Recognition}
-		\subsubsection{Feature Engenieering component}
-
-	\subsection{Creating the Taxonomy}
-		\subsubsection{Clusterer}
-		\subsubsection{Taxonomy Builder}
-		\subsubsection{Model Builder}
+\section{Preprocessing }
+As an initial step to start the process of creating the taxonomy a preprocessing step is proposed by the paper.\\
+In the preprocessing two major steps take place, first the Speech Data is transformed into text and second the text is transformed into feature vectors for the method incharged of building the taxonomy.
 
 
-	\subsection{Asessing the results}
+\subsection{Automatic Speech Recognition}
+		
+During this step the conversations between agents and clients which have been recorded are transformed into text using Automatic Speech Recognition.\\
+The authors of the paper mention that they transformed more than 2000 calls  but they never mention the ratio of already given transcriptions to the generated transcriptions using Speech Recognition.\\
+The authors also describe several issues that they identified for this step, they actually claim that the data generated during this process is very noisy with an error rate of about 40\%.\\
+Some of the issues are:
+\begin{itemize}
+
+	\item Different Accents: Since the call center takes calls from all over the world, the speakers usually have different access. The tool they used for ASR seems to be affected by this fact.
+	
+	\item Deletion of Words 
+	
+	\item Wrong words are inserted
+	
+	\item Wrong Speaker is assigned
+	
+	\item no punctuation marks
+	
+	\item silence periods
+	
+	\item no sentence boundaries
+	
+	\item false starts
+	
+	\item filling words (i.e : "um", "uhh")
+\end{itemize}
+
+For the reviewer of this paper is unclear whether this are actually issues
+		
+		\subsection{Feature Engenieering component}
+
+	\section{Creating the Taxonomy}
+		\subsection{Clusterer}
+		\subsection{Taxonomy Builder}
+		\subsection{Model Builder}
+
+
+	\section{Asessing the results}
 
 	
 
