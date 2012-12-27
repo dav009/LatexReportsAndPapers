@@ -1,0 +1,119 @@
+%\documentclass[4pt,a4paper]{article}
+\documentclass[4pt,a4paper,twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{algorithm}
+\usepackage{textcomp}
+\usepackage{fontenc}
+\usepackage{tipa}
+\usepackage{framed}
+\usepackage{multicol}
+\usepackage{color}
+\usepackage{qtree}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\usepackage{cite}
+\usepackage{lastpage}
+\usepackage{lmodern}
+
+
+
+
+\usepackage[]{hyperref}
+\hypersetup{  
+	colorlinks=true,
+    urlcolor=cyan           % color of external links
+}
+
+\author{David Przybilla\\dav.alejandro@gmail.com, davida@coli.uni-saarland.de\\ \\ Term Paper for Knowledge Representation Seminar\\ Universit\"{a}t des Saarlandes}
+\title{Automatic Generation of Knowledge Representation}
+\begin{document}
+\twocolumn[
+	 \begin{@twocolumnfalse}
+    \maketitle
+  \end{@twocolumnfalse}
+ ]
+
+
+
+
+\section{Introduction}
+
+
+
+
+
+--------------------------------------------------
+Automatic generation of Taxonomies
+
+Summary
+
+\section{Problem}
+In the given paper [1] the authors describe a method for automatically creating a taxonomy.
+The domain of the problem are the issues of a Callcenter. The Call center handles user problems related to different sofware and services.
+The proposed method use  written and speech records between the agents of the call center and the clients. 
+In the next sections  the method for transforming unstructured data into a knowledge representation proposed by the paper will be described,
+then a critical review and opinion over the method will be given. Addionally a comparison between the given paper and other papers willing to automatically construct knowledge representation is made.
+The last section covers  possible applications of automatically constructed Ontologies in hte domain of Natural Language Processing.
+
+
+Motivation for automatically generationg a taxonomy
+
+Automatically creating knowledge representation from unstructured text has been a focus of study given the amount of data available in the web.
+Projects such as 'Know it all'[2] considers the problem of developing a variety of domain-independent systems that extract information from the Web in an autonomous, scalable way.Google for example has the project 'The knowledge Graph' which considers the automatically construction of an ontology by using the web knowledge. 
+
+Information extraction for example considers the task of identifying entities and relations from raw text.
+In the first stages of this task only a very specific range of relations and entities are to be caught.
+For example one would like to gather all relations and entities talking about  "getting the nobel prize" or "change of chairs in a company".
+However in the recent years this trend has evolved towards "Open Information Extraction", which wants to capture as much as entities and relations as possible given raw text.
+The applications to information extraction are countless, the ouput of the task provide a resource for other more sophisticated processes, and it could be useful for example to correlate different relations or events captured from differnt sources, topic mining, opinion mining or information retrieval.
+
+
+\section{Proposed Method}
+
+
+In this section the proposed unsupervised method is disscused
+
+	\subsection{Preprocessing }
+		\subsubsection{Automatic Speech Recognition}
+		\subsubsection{Feature Engenieering component}
+
+	\subsection{Creating the Taxonomy}
+		\subsubsection{Clusterer}
+		\subsubsection{Taxonomy Builder}
+		\subsubsection{Model Builder}
+
+
+	\subsection{Asessing the results}
+
+	
+
+Discussion
+
+Issues regarding the assesment
+
+Issues with NLP processing used
+
+what is this representation useful for? QA?
+
+Comparison with other papers using nlp to generate knowledge representation
+
+
+
+
+[1] exposition paper
+[2] http://www.cs.washington.edu/research/knowitall/
+
+
+\bibliography{paper}{}
+\bibliographystyle{alpha}
+
+
+
+
+
+
+\end{document}
+
+
