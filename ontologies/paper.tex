@@ -1,5 +1,5 @@
-%\documentclass[4pt,a4paper]{article}
-\documentclass[4pt,a4paper,twocolumn]{article}
+\documentclass[4pt,a4paper]{article}
+%\documentclass[4pt,a4paper,twocolumn]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{algorithm}
@@ -16,7 +16,8 @@
 \usepackage{lastpage}
 \usepackage{lmodern}
 
-
+\usepackage{setspace}
+\doublespacing
 
 
 \usepackage[]{hyperref}
@@ -28,11 +29,11 @@
 \author{David Przybilla\\dav.alejandro@gmail.com, davida@coli.uni-saarland.de\\ \\ Term Paper for Knowledge Representation Seminar\\ Universit\"{a}t des Saarlandes}
 \title{Automatic Generation of Knowledge Representation}
 \begin{document}
-\twocolumn[
-	 \begin{@twocolumnfalse}
+%\twocolumn[
+%	 \begin{@twocolumnfalse}
     \maketitle
-  \end{@twocolumnfalse}
- ]
+ % \end{@twocolumnfalse}
+ %]
 
 
 
@@ -53,9 +54,8 @@ This report focus on the paper \textit{Automatic Generation of Domains Models fo
 In the given paper the authors describe a method for automatically creating a taxonomy.\\
 The domain of the problem are the issues of a Callcenter. The Call center handles user problems related to different sofware and services.\\
 The proposed method use  written and speech records between the agents of the call center and the clients to built the ontology. \\
-In the next sections  the method for transforming unstructured data into a knowledge representation proposed by the paper will be described,
-then a critical review and opinion over the method will be given. Additionally a comparison between the given paper and other papers willing to automatically construct knowledge representation is made.
-The last section covers  possible applications of automatically constructed Ontologies in the domain of Natural Language Processing.
+In the next sections  the method for transforming unstructured data into a knowledge representation proposed by the paper will be described, a critical review and opinion will be given at the final paragraph of each subsection. Additionally a final section compares the given paper and other papers willing to automatically construct knowledge representation as well as discussing possible applications in the NLP area.
+
 
 \section{Motivation}
 
@@ -78,7 +78,7 @@ Many tasks require Knowledge sources in order to achieve good performance, howev
 Consider for example the applications using Wordnet or Framenet, they heavily rely on the coverage of those sources to disambiguate the senses of the words.
 In ~\cite{Tonelli:2013:WWM:2405838.2405917} Tonelli proposes a method for extending this Knowledge Sources by using Wikipedia in a semi-automatic way.
 Following the same trend Yamada ~\cite{yamada-EtAl:2011:IJCNLP-2011} tries to extend Wordnet in an automatic way by using Wikipedia.\\
-Following a different direction Pinkal,Regneri and Koller  in ~\cite{regneri-koller-pinkal:2010:ACL} propose the use of crowdsourcing to gather scripts of common activities (like shopping, cooking and egg) in order to model $Common\, Knowledge$ which is often overlooked by computer systems.
+Following a different direction Pinkal,Regneri and Koller  in ~\cite{regneri-koller-pinkal:2010:ACL} propose the use of crowdsourcing to gather scripts of common activities (like shopping, cooking eggs) in order to model $Common\, Knowledge$ which is often overlooked by computer systems.
 
 
 \section{Preprocessing }
@@ -95,7 +95,7 @@ The authors also describe several issues that they identified for this step, the
 Some of the issues are:
 \begin{itemize}
 
-	\item Different Accents: Since the call center takes calls from all over the world, the speakers usually have different access. The tool they used for ASR seems to be affected by this fact.
+	\item Different Accents: Since the call center takes calls from all over the world, the speakers usually have different accents. The tool they used for ASR seems to be affected by this fact.
 	
 	\item Deletion of Words 
 	
@@ -145,7 +145,7 @@ Nevertheless the previous mentioned noisy inclution by the ASR system could be o
 \begin{itemize}
 	\item Conversations are long enough. Conversations of this kinds are long enough for keywords to be repeated several times during the conversations, that is, even if there is word deletion the system would have several opportunities to capture the right keywords, the other words which are not likely to be keywords will be discarded by the system anyway.
 
-  \item Given the BoW approach, the wrong word insertion would only harm when they inserted word is a domain keyword.
+  \item Given the BoW approach, the wrong word insertion would only harm when they inserted word which is a domain keyword.
   
 \end{itemize}
 
@@ -154,15 +154,102 @@ It should be possible for example to extend each document with extra keywords in
 The call center could for example use keywords from the manual of the software they support.
 
 
-	\section{Creating the Taxonomy}
-		\subsection{Clusterer}
-		\subsection{Taxonomy Builder}
-		\subsection{Model Builder}
+\section{Creating the Taxonomy}
+
+Once each document is transformed into a vectorial space representation the component in charged of creating the taxonomy takes place. The Taxonomy Component uses text clustering to find a herarchy of Topics.\\
+Each of the following subsections describes in more detail what happens during this process.
+
+\subsection{Clusterer}
+The main idea of this step is to use a bisection clustering algorithm many times to have different clusters the documents.\\
+The bisection algorithm receives as an input the number of clusters ($K$) and the documents. It progressively looks for clusters until the $K$ clusters are found.
+\begin{figure*}[]
+  \centering
+    \includegraphics[scale=0.2]{pics/clusterer2.jpg}
+    \caption{Clusterer}
+   \label{fig:clusterer}  
+\end{figure*}
+
+This component runs the bisection algorithm with many different $K$. The underlying assumption is that the clustering results where $K$ is a high number will refer to a more fine granularity of topics, whereas a clustering with a lower value of $K$ will result in a higher level topic granularity (Figure ~\ref{fig:clusterer}).\\
+In other words, if a topic were for example operative systems, then there would be a cluster with a low value of $K$ which will cover this topic, and the clusters covering the topics MacOS and Windows will be generated by a run with a much higher $K$.\\
+\\
+The result by the end of this step is a set of clusters, the authors assume that each cluster refers to a topic.
+
+\subsection{Taxonomy Builder}
+
+\begin{figure*}[]
+  \centering
+    \includegraphics[scale=0.2]{pics/taxonomyBuilder.jpg}
+    \caption{Taxonomy Builder input and output}
+   \label{fig:taxonomyBuilder}  
+\end{figure*}
+
+Given the assumption that there is a granularity and herarchy of topics among the clusters found in the clusterer step, the taxonomy builder deals with  how to find the herarchy, and to get a tree structure out of the sets of clusters (Figure ~\ref{fig:taxonomyBuilder} ).\\
+\\
+The herarchy is found by creating a tree, in this tree, the tree nodes correspond to the clusters found in the clusterer step, the problem is then finding the arcs, for which the authors proposed the following greedy algorithm, there is an arc from cluster $A$ to cluster $B$ only if:
+\begin{itemize}
+	\item  There is at least one document in common between $A$ and $B$
+	\item  $B$ was found during an iteration with higher $K$ in the clusterer step. That is, the topic granularity of Cluster $B$ is in principle higher whereas Cluster $A$'s topic is more general
+\end{itemize}
 
 
-	\section{Asessing the results}
+\subsection{Model Builder}
+The Model Builder enriches the given taxonomy by adding extra information that might result useful for the 
+agents of the call center.\\
+The Model Builder adds and orders the following information:
+\begin{itemize}
+	\item Identify the most common answers and questiosn
+	\item Creates call statistics (i.e: what is the average duration for a call regarding a topic)
+	\item Style of the agents,how do the agents open and end conversations
+	\item Typical Actions
+\end{itemize}
 
-	
+Regarding the common answers and questions, they are arranged and merged for each node by:
+\begin{itemize}
+	\item Tiling:  Questions and Answers which share a ratio of similar words are gathered so that they appear as a single
+				  Entry. This should be useful for the agents when browsing a node in the taxonomy
+	\item Ordering: Questions and Answers are ordered accordding to their apperance in the conversation
+\end{itemize}
+
+
+For the reviewer there is space for improvement for the tiling, one could for example go into a very sophisticated system that tries to capture paraphrases, given that the transcriptions are conversations one could use discourse information to gather paraphrases as proposed by Regneri and Wang in ~\cite{pub6382}
+
+\subsubsection*{Typical Actions}
+The typicals actions for each node are also gathered, that is the typical instructions that the agent should give the client.
+The authors of the paper hypothesyse that the actions are usually around the features of the product. So if they know that a feature is the "format button", then they know a verb around that noun will most likely  be an action.
+
+From the reviwers perspective it was not clear in the paper how they actually solved this problem, did they manually gathered the domain lexicon? or they used any external method for gathering this from other soruces?.\\
+This could include many multiword expression which are usually hard to handle by the systems.\\
+As an important remark, none of this was in someway assesed by the evaluation they proposed, so how did they assure the quality of this steps is a  good question.
+
+
+\subsubsection*{Questions and Answers}
+Since their input is raw text, the authors mention that in order to capture the questions the use trigger words such as "how", "what","where" which should mark the beginning of a question.\\
+Regarding to the answer, it would be the sentence following the question sentence.
+
+In the opinion of the reviwer here is where the noise of the ASP may actually affect the system, it won't affect the creation of the taxonomy, nor the performance of the task from which the authors evaluated their system, but rather it will affect the users of the taxonomy. Very noisy transcriptions will generate wrong questions and propose wrong answers, furthermore it might overlook many questions and therefore potential answers.\\
+This issue could not be evaluated by the method they proposed in the paper since again, they use a bag of words approach.
+
+
+\section{Asessing the results}
+Since asessing the quality of the generated Taxonomy turned out to be a challenge the
+authors proposed the application of realtime topic identification of a call.
+The reviewer thinks that the authors wanted to proof the goodness and coverage of the 
+taxonomy by using it in a task.\\
+\\
+The authors ran two experiments.In the first one they tried to identify the topic of a call
+given different fractions of the call being observed. In overall one could say that they achieved
+good results.
+The second experiment consisted in identifying if there were topics harder to identify than others.
+As one could expect naturally some topics needed longer fractions of observations to achiave decent results.
+
+\section{Opinion and Comparisons}
+
+
+The overall construction of the taxonomy given the underlying idea of different granularities of topics seem to work. Nevertheless the reviwer wonders whether the expressivness and coverage is enough for what it might be real applications that might actually benefit the agents or the users of the callcenter, for example if one were to extend the system into a Question answering System, then this representation will be surely not enough.\\
+\\
+In ~\cite{DBLP:conf/kdd/LiuSLW12} Liu proposes another method to create a taxonomy from keywords , however they handle different issues which were not addressed by the authors of the reviewed paper, for example fine grain domains and changing domains.\\
+Liu proposes using Keywords and not text, since it would provide both an easy way for humans to read the taxonomy and ti will be easier to model how the taxonomy evolves and changes as the domain does.\\
+Furthermore, Liu proposes a way to connect the keywords by using Information Retrieval.
 
 Discussion
 
