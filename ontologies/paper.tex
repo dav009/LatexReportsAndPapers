@@ -1,5 +1,5 @@
-\documentclass[4pt,a4paper]{article}
-%\documentclass[4pt,a4paper,twocolumn]{article}
+%\documentclass[4pt,a4paper]{article}
+\documentclass[4pt,a4paper,twocolumn]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{algorithm}
@@ -11,13 +11,13 @@
 \usepackage{color}
 \usepackage{graphicx}
 \usepackage{amsmath}
-
+\usepackage{pbox}
 \usepackage{cite}
 \usepackage{lastpage}
 \usepackage{lmodern}
 
-\usepackage{setspace}
-\doublespacing
+%\usepackage{setspace}
+%\doublespacing
 
 
 \usepackage[]{hyperref}
@@ -29,11 +29,11 @@
 \author{David Przybilla\\dav.alejandro@gmail.com, davida@coli.uni-saarland.de\\ \\ Term Paper for Knowledge Representation Seminar\\ Universit\"{a}t des Saarlandes}
 \title{Automatic Generation of Knowledge Representation}
 \begin{document}
-%\twocolumn[
-%	 \begin{@twocolumnfalse}
+\twocolumn[
+	 \begin{@twocolumnfalse}
     \maketitle
- % \end{@twocolumnfalse}
- %]
+  \end{@twocolumnfalse}
+ ]
 
 
 
@@ -229,7 +229,26 @@ Regarding to the answer, it would be the sentence following the question sentenc
 In the opinion of the reviwer here is where the noise of the ASP may actually affect the system, it won't affect the creation of the taxonomy, nor the performance of the task from which the authors evaluated their system, but rather it will affect the users of the taxonomy. Very noisy transcriptions will generate wrong questions and propose wrong answers, furthermore it might overlook many questions and therefore potential answers.\\
 This issue could not be evaluated by the method they proposed in the paper since again, they use a bag of words approach.
 
+\begin{center}
+\begin{table*}[ht]
+{\small
+\hfill{}
+\begin{tabular}{| l | c | c | c | r | }
+\hline
+ \textbf{System} & \textbf{Extraction} & \textbf{Analysis} & \textbf{Generation} & \textbf{Validation} \\ \hline
 
+\hline
+ $TERMINAE$ &  \pbox[t]{20cm}{NLP Tools are used. \\Human intervention is possible} & \pbox[t]{100mm}{Manual\\Similarity of Concepts} & No standard & Only Human \\ \hline
+    $SALT$ & \pbox[t]{100mm}{NLP Tools\\ fully automatic} & \pbox[t]{100mm}{Automatic\\ Similarity of Concepts} & No standard & \pbox[t]{20cm}{Partial Human \\ Intervention}\\ \hline
+     \pbox[t]{100mm}{ $Learning$ $OWL$ \\$Ontology$ \\$from Text$}&  \pbox[t]{100mm}{ NLP Tools\\Wordnet\\fully automatic} & Not Given & OWL & \pbox[t]{20cm}{Not Given}\\ \hline
+     \pbox[t]{100mm}{Reviewed \\ System} & NLP Tools fully automatic & \pbox[t]{20cm}{Text Clustering, \\Document Similarity}  & No Standard & Not Given\\
+\hline
+\end{tabular}}
+\hfill{}
+ \caption{Comparison among Systems}
+\label{table:comparisonTable}
+\end{table*}
+\end{center}
 \section{Asessing the results}
 Since asessing the quality of the generated Taxonomy turned out to be a challenge the
 authors proposed the application of realtime topic identification of a call.
@@ -249,7 +268,45 @@ The overall construction of the taxonomy given the underlying idea of different 
 \\
 In ~\cite{DBLP:conf/kdd/LiuSLW12} Liu proposes another method to create a taxonomy from keywords , however they handle different issues which were not addressed by the authors of the reviewed paper, for example fine grain domains and changing domains.\\
 Liu proposes using Keywords and not text, since it would provide both an easy way for humans to read the taxonomy and ti will be easier to model how the taxonomy evolves and changes as the domain does.\\
-Furthermore, Liu proposes a way to connect the keywords by using Information Retrieval.
+Furthermore, Liu proposes a way to connect the keywords by using text clustering and Information Retrieval, and she addresses many issues not covered by the given paper, this issues are resolved by using information extraction.\\
+One of the issues with BoW approach and hierchical clustering is whether to trust or not the subtyping, for example the concept of 'vehicle insurance" and ''car insurance"  is clear that the later is a sub type of the earlier. Nevertheless from distributional perspective there is no way for the machine to assure to capture it this way, actually the reviewed paper mentions nothing about this, but it might be possible to have this subtype relations inversed given the distrubution of the text. Liu on the other hand proposes to use information extraction snowball approach to look for patterns that might allow to capture some of the suptype,supertype relations, thus leaving this task not only to clustering step.\\
+\\
+A set of interesting remarks are made by  Bedini and Nguyen in ~\cite{artofontology} in their survey about automatic ontology generation they describe the life cycle of ontology generation. Namely they go in a general description of each phase as:
+\begin{itemize}
+	\item Extraction: The acquisition of Information and the processing of unstructured and semi-structured data
+	\item Analysis: finding the relations and concepts int he given information, using heavily NLP techniques
+	\item Generation: Translating the relations and concepts into the ontology formalism, as well as merging ontologies.
+	\item Validation: A step to check possible wrong relations, usually as the authros mentioned made manually
+	\item Evolution: The posibility of an incrementally growing ontology.
+\end{itemize}
+For the reviewer this life cycle gives an overview of what the authors of the reviewed paper has done, nevertheless the scalability of the proposed method does not leave space for incremental expansion of the taxonomy, that is in order to give evolution to the proposed methods the authors would have to re-run the whole system with the extra information.
+
+
+
+\subsection*{Other Systems}
+
+In order to make a comparison of the proposed system in the reviewed paper the table proposed by Sharma using the Life Cycle steps in the previos subsection can be handy. In ~\cite{IJOATsemantic-domain-ontology} Sharma compares two famous systems  $SALT$ and $TERMINAE$ both try to construct ontologies in an automatic way.
+
+
+One could clearly see in Table~\ref{table:comparisonTable} that some systems admit some human interventions at some points, this could be benefitial since some steps regarding for example Word Sense Disambiguation could be very sensitive to the over all performance of the system.\\
+\\
+$Terminae$ ~\cite{BiebowSzulman:99} extracts keywords from the given corpora and hand it to an expert, whose task is to select the relevant terms and conceptualize them. Conceptualizing refers to first give a natural language definition of each term and then expressing it in terms of the choosen formalism to represent the ontology.\\
+\\
+$Salt$ ~\cite{Lonsdale02pepperingknowledge} on the other hand tries to go further by automatizing more parts of the process. Nevertheless it needs other knowledge sources in order to work. it assumes the existance of 3 types of knowledge: a general Knowledge representation of the domain, a dictionary to discover lexical relations among terms and a consistent set of texts. Salt also allows some interaction with the user, in the last stage for example introduces a new step called "Constraint Discovery" in which the user can state things such as "a person only has one birthdate". \\
+\\
+The system proposed in Learning an OWL ontology from text ~\cite{citeulike:136652} is more recent than the previous mentioned ones. It heavily relies on Wordnet for connecting concepts. Nevertheless in the paper is mentioned how they extract the keywords that will be used later on in Wordnet, as a remark also nothing is mentioned about the verification process.\\
+\\
+It is also worth noticing how the reviewed paper does not describe much about the validation process.
+Morover both the extraction and Analysis part seems to be overlapping for the reviwed system, that could be because they proposed a rather simple structure ( Taxonomy of documents) as instead to a more complicated representation such relations among concepts.\\
+A more complicated representation would definitely requiered a clear separation among those two phases, for example the analysis could requiered syntactic and Semantic processing to solve anaphoras, in order to be able to capture non-obvious relations given in the texts.
+
+\subsection*{NLP Applications}
+
+\section{Conclutions}
+To Finalize the reviewer would like to conclude that the reviewed paper is a good attempt to automatically generate Taxonomies, however the way in which the method is assessed and also whether a  taxonomy is enough as a knowledge source, are opened questions.\\
+In the final part of this paper the reviewer tried to compared and mentioned other systems which are trying to automatically generate knowledge representation, though they go into a more detailed formalisms they share common tasks and common challenges.\\
+In the opinion of the reviewer more development in the NLP area would allow the construction of better Knowledge representations as many of the challengues boils down to sub-nlp tasks such as: Information Extraction, Wordsense desambiguation, Text Entailment, Text Clustering, Relation Extraction.\\
+Nevertheless this is a circle since many NLP task would greatly improve their performance by  the automatic extension of knowledge representations.
 
 Discussion
 
