@@ -26,7 +26,7 @@
     urlcolor=cyan           % color of external links
 }
 
-\author{David Przybilla\\dav.alejandro@gmail.com, davida@coli.uni-saarland.de\\ \\ Term Paper for Knowledge Representation Seminar\\ Universit\"{a}t des Saarlandes}
+\author{David Przybilla\\ \href{mailto:dav.alejandro@gmail.com}{dav.alejandro@gmail.com}, \href{mailto:davida@coli.uni-saarland.de}{davida@coli.uni-saarland.de}\\ \\ Term Paper for Knowledge Representation Seminar\\ Universit\"{a}t des Saarlandes}
 \title{Automatic Generation of Domain Models}
 \begin{document}
 \twocolumn[
@@ -65,8 +65,8 @@ Projects such as 'Know it all'\footnote{\url{http://www.cs.washington.edu/resear
 Nevertheless the unstructured nature of the information has proven to be an challenge when constructing knowledge representations, natural languages arises many problems when trying to understand their semantics and to abstract concrete cases into general relations and entities.\\
 In the opinion of this reviewer Information Extraction provided a first simple task into automatically creating structures from natural language texts. The task in information extraction consist in gathering  relations among entities from raw text.\\
 In the first stages of this task only a very specific range of relations and entities are to be caught.
-For example one would like to gather all relations and entities talking about  "getting the Nobel prize" or "change of chairs in a company".\\
-However in the recent years this trend has evolved towards "Open Information Extraction", which wants to capture as much as entities and relations as possible given raw text.\\
+For example one would like to gather all relations and entities talking about  ``getting the Nobel prize'' or ``change of chairs in a company''.\\
+However in the recent years this trend has evolved towards ``Open Information Extraction'', which wants to capture as much as entities and relations as possible given raw text.\\
 The applications to information extraction are countless, the output of the task provide a resource for other more sophisticated processes, and it could be useful for example to topic mining, opinion mining or information retrieval or to correlate different relations or events captured from different sources.
 In the opinion of the reviewer this provides a first step into building an ontology, since it would allow initially to have a candidate pool of concepts and relations.\\
 \\
@@ -111,7 +111,7 @@ Some of the issues are:
 	
 	\item false starts
 	
-	\item filling words (i.e : "um", "uhh")
+	\item filling words (i.e : ``um'', ``uhh'')
 \end{itemize}
 
 For the reviewer of this paper is unclear whether this are actually issues.\\
@@ -132,7 +132,7 @@ Each document pass through the following filters:
 \end{figure*}
 
 \begin{itemize}
-	\item Stop Word Removal: Functional words which do not convey relevant meaning are removed (i.e: ''for",''of"..).
+	\item Stop Word Removal: Functional words which do not convey relevant meaning are removed (i.e: ``for'',``of''..).
 	
 	\item stemmer: Each word is converted into its stem. This has the objective of aligning dimensions in the following process for building the taxonomy.
 	
@@ -165,7 +165,7 @@ The bisection algorithm receives as an input the number of clusters ($K$) and th
 \begin{figure*}[]
   \centering
     \includegraphics[scale=0.2]{pics/clusterer2.jpg}
-    \caption{Clusterer}
+    \caption{Clusterer - Clusters with different Granularity}
    \label{fig:clusterer}  
 \end{figure*}
 
@@ -179,7 +179,7 @@ The result by the end of this step is a set of clusters, the authors assume that
 \begin{figure*}[]
   \centering
     \includegraphics[scale=0.2]{pics/taxonomyBuilder.jpg}
-    \caption{Taxonomy Builder input and output}
+    \caption{Input and Output of the Taxonomy Builder Component}
    \label{fig:taxonomyBuilder}  
 \end{figure*}
 
@@ -215,7 +215,7 @@ For the reviewer there is space for improvement for the tiling, one could for ex
 
 \subsubsection*{Typical Actions}
 The typical actions for each node are also gathered, that is the typical instructions that the agent should give the client.
-The authors of the paper hypotheses that the actions are usually around the features of the product. So if they know that a feature is the "format button", then they know a verb around that noun will most likely  be an action.
+The authors of the paper hypotheses that the actions are usually around the features of the product. So if they know that a feature is the ``format button'', then they know a verb around that noun will most likely  be an action.
 
 From the reviewer perspective it was not clear in the paper how they actually solved this problem, did they manually gathered the domain lexicon? or they used any external method for gathering this from other sources?.\\
 This could include many multi-word expression which are usually hard to handle by the systems.\\
@@ -223,7 +223,7 @@ As an important remark, none of this was in somehow assessed by the evaluation t
 
 
 \subsubsection*{Questions and Answers}
-Since their input is raw text, the authors mention that in order to capture the questions the use trigger words such as "how", "what","where" which should mark the beginning of a question.\\
+Since their input is raw text, the authors mention that in order to capture the questions the use trigger words such as ``how'', ``what'',``where'' which should mark the beginning of a question.\\
 Regarding to the answer, it would be the sentence following the question sentence.
 
 In the opinion of the reviewer here is where the noise of the ASP may actually affect the system, it won't affect the creation of the taxonomy, nor the performance of the task from which the authors evaluated their system, but rather it will affect the users of the taxonomy. Very noisy transcriptions will generate wrong questions and propose wrong answers, furthermore it might overlook many questions and therefore potential answers.\\
@@ -269,7 +269,7 @@ The overall construction of the taxonomy given the underlying idea of different 
 In ~\cite{DBLP:conf/kdd/LiuSLW12} Liu proposes another method to create a taxonomy from keywords , however they handle different issues which were not addressed by the authors of the reviewed paper, for example fine grain domains and changing domains.\\
 Liu proposes using Keywords and not text, since it would provide both an easy way for humans to read the taxonomy and ti will be easier to model how the taxonomy evolves and changes as the domain does.\\
 Furthermore, Liu proposes a way to connect the keywords by using text clustering and Information Retrieval, and she addresses many issues not covered by the given paper, this issues are resolved by using information extraction.\\
-One of the issues with BoW approach and hierarchical clustering is whether to trust or not the subtyping, for example the concept of 'vehicle insurance" and ''car insurance"  is clear that the later is a sub type of the earlier. Nevertheless from distributional perspective there is no way for the machine to assure to capture it this way, actually the reviewed paper mentions nothing about this, but it might be possible to have this subtype relations inverted given the distribution of the text. Liu on the other hand proposes to use information extraction snowball approach to look for patterns that might allow to capture some of the subtype,supertype relations, thus leaving this task not only to clustering step.\\
+One of the issues with BoW approach and hierarchical clustering is whether to trust or not the subtyping, for example the concept of ``vehicle insurance'' and ``car insurance''  is clear that the later is a sub type of the earlier. Nevertheless from distributional perspective there is no way for the machine to assure to capture it this way, actually the reviewed paper mentions nothing about this, but it might be possible to have this subtype relations inverted given the distribution of the text. Liu on the other hand proposes to use information extraction snowball approach to look for patterns that might allow to capture some of the subtype, supertype relations, thus leaving this task not only to clustering step.\\
 \\
 A set of interesting remarks are made by  Bedini and Nguyen in ~\cite{artofontology} in their survey about automatic ontology generation they describe the life cycle of ontology generation. Namely they go in a general description of each phase as:
 \begin{itemize}
@@ -292,7 +292,7 @@ One could clearly see in Table~\ref{table:comparisonTable} that some systems adm
 \\
 $Terminae$ ~\cite{BiebowSzulman:99} extracts keywords from the given corpora and hand it to an expert, whose task is to select the relevant terms and conceptualize them. Conceptualizing refers to first give a natural language definition of each term and then expressing it in terms of the chosen formalism to represent the ontology.\\
 \\
-$Salt$ ~\cite{Lonsdale02pepperingknowledge} on the other hand tries to go further by automatizing more parts of the process. Nevertheless it needs other knowledge sources in order to work. it assumes the existance of 3 types of knowledge: a general Knowledge representation of the domain, a dictionary to discover lexical relations among terms and a consistent set of texts. Salt also allows some interaction with the user, in the last stage for example introduces a new step called "Constraint Discovery" in which the user can state things such as "a person only has one birth date". \\
+$Salt$ ~\cite{Lonsdale02pepperingknowledge} on the other hand tries to go further by automatizing more parts of the process. Nevertheless it needs other knowledge sources in order to work. it assumes the existance of 3 types of knowledge: a general Knowledge representation of the domain, a dictionary to discover lexical relations among terms and a consistent set of texts. Salt also allows some interaction with the user, in the last stage for example introduces a new step called ``Constraint Discovery'' in which the user can state things such as ``a person only has one birth date''. \\
 \\
 The system proposed in Learning an OWL ontology from text ~\cite{citeulike:136652} is more recent than the previous mentioned ones. It heavily relies on Wordnet for connecting concepts. Nevertheless in the paper is mentioned how they extract the keywords that will be used later on in Wordnet, as a remark also nothing is mentioned about the verification process.\\
 \\
